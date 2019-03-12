@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>EventosApp</title>
+	
+	 <!--Import Google Icon Font-->
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+     <!--Let browser know website is optimized for mobile-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <link rel="stylesheet" href="style/styleCss.css"/>
+</head>
+
+<body>
+	<header>
+	 <nav>
+	    <div class="nav-wrapper">
+	      <a href="#" class="brand-logo">Contato</a>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	        <li><a class="waves-effect waves-light btn" href="/contatos"><i class="material-icons left">add_circle_outline</i>Lista de Contato</a></li>
+	      </ul>
+	    </div>
+	  </nav>
+	</header>
+	
+	
+	<div class="container detalhesContato">
+		<h5>Detalhes do Contato</h5>
+		<div class="row">
+			<p>Nome: <span  th:each="cnt: ${contato}" 
+							
+							th:text="${cnt.nome}"></span></p>
+	<!-- 	<p>Telefone: <span th:text="${contato.telefone}"></span></p>  -->	
+			
+		</div>
+	</div>	
+	
+		
+		
+	<div class="container formContato">
+		<form method="post">
+			<!--	Nome: <input type="text" value="" name="nome"/>  -->
+		<div class="row">
+				<div class="input-field col s3">
+					DDD: <input type="text" value="" name="ddd"/>
+				</div>
+				<div class="input-field col s9">
+					Telefone: <input type="text" value="" name="numero" />
+				</div>
+		</div>
+			
+			<button class="waves-effect waves-light btn" type="submit">Adicionar</button> 
+			<th:block th:include="mensagemValidacao"></th:block>
+		</form>
+	</div>
+	
+	
+
+	<table class="container tabelaContato">
+		<thead>
+			<tr>
+				<th>DDD</th>
+				<th>Telefone</th>
+				<th>Deletar</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+		 	<tr th:each="telefone : ${telefones}">
+				<td><span th:text=${telefone.ddd}></span></td>   
+				<td><span th:text=${telefone.numero}></span></td>  
+				<!-- <td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarConvidado').arg(0, convidado.rg).build())}"><i class="material-icons left">delete</i></a></td>-->
+		 	<td><a th:href="@{/deletarTelefone/{telefone}(telefone = ${telefone.id})}"><i class="material-icons left">delete</i></a></td> 	
+				
+			</tr> 
+		</tbody>
+	</table>
+			
+		<!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+
+
+</body>
+</html>		
